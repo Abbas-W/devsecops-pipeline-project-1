@@ -63,5 +63,5 @@ def read_file():
         return f.read()
 
 if __name__ == '__main__':
-    # Vulnerability 7: Debug mode in production
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    # Run without debug mode to avoid exposing the interactive debugger
+    app.run(host='0.0.0.0', port=5000, debug=False)
