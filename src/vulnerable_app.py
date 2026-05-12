@@ -9,6 +9,7 @@ import os
 import subprocess
 import sqlite3
 import yaml
+import re
 
 app = Flask(__name__)
 
@@ -29,10 +30,13 @@ def get_user(username):
 # Vulnerability 3: Command Injection
 @app.route('/ping')
 def ping():
-    """Vulnerable to command injection."""
+    """Ping a host with basic input validation."""
     host = request.args.get('host', 'localhost')
-    # BAD: User input directly in shell command
-    result = subprocess.check_output(f"ping -c 1 {host}", shell=True)
+    # Allow only simple hostname / IP-like characters to reduce injection risk
+    if not re.fullmatch(r"[A-Za-z0-9\.\-:]+", host):
+        return "Invalid host", 400
+    # Use argument list and avoid shell=True to prevent command injection
+    result = subprocess.check_output(["ping", "-c", "1", host])
     return result
 
 # Vulnerability 4: Server-Side Template Injection (SSTI)
