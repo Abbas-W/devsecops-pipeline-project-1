@@ -42,11 +42,11 @@ def ping():
 # Vulnerability 4: Server-Side Template Injection (SSTI)
 @app.route('/greet')
 def greet():
-    """Vulnerable to SSTI attacks."""
+    """Render greeting safely without constructing template from user input."""
     name = request.args.get('name', 'Guest')
-    # BAD: User input in template string
-    template = f"<h1>Hello {name}!</h1>"
-    return render_template_string(template)
+    # GOOD: Keep template constant and pass user input as a variable
+    template = "<h1>Hello {{ name }}!</h1>"
+    return render_template_string(template, name=name)
 
 # Vulnerability 5: Insecure Deserialization
 @app.route('/load_config')
