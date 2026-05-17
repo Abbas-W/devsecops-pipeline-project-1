@@ -63,7 +63,7 @@ This project intentionally includes vulnerabilities for educational purposes:
 
 \`\`\`bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/devsecops-pipeline-project-1.git
+git clone https://github.com/Abbas-W/devsecops-pipeline-project-1.git
 
 # The pipeline runs automatically on push
 # View results in the Actions tab
